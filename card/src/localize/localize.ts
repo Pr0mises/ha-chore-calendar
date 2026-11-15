@@ -1,9 +1,10 @@
 import type { HomeAssistant } from "../types";
 import en from "./languages/en.json";
 import it from "./languages/it.json";
+import de from "./languages/de.json";
 
 /** Registered translation dictionaries, keyed by language code. */
-const LANGUAGES: Record<string, unknown> = { en, it };
+const LANGUAGES: Record<string, unknown> = { en, it, de };
 
 /**
  * Resolved language for both translation lookup and Intl formatters.
