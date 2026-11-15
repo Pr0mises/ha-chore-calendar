@@ -1,0 +1,233 @@
+{
+  "card": {
+    "error": {
+      "no_entity": "Bitte mindestens eine Entität festlegen"
+    },
+    "button": {
+      "add_chore": "Aufgabe hinzufügen",
+      "edit": "Bearbeiten",
+      "skip": "Überspringen",
+      "skipping": "Wird übersprungen...",
+      "complete": "Erledigen",
+      "completing": "Wird erledigt...",
+      "uncomplete": "Erledigung rückgängig machen",
+      "uncompleting": "Wird rückgängig gemacht...",
+      "cancel": "Abbrechen"
+    },
+    "state": {
+      "loading": "Wird geladen...",
+      "no_chores": "Keine Aufgaben"
+    },
+    "show_all": {
+      "fewer": "Weniger anzeigen",
+      "more_one": "Alle anzeigen (eine weitere)",
+      "more_other": "Alle anzeigen ({count} weitere)"
+    },
+    "section": {
+      "overdue": "Überfällig",
+      "due": "Fällig",
+      "pending": "Anstehend",
+      "completed": "Erledigt"
+    },
+    "status": {
+      "overdue": "Überfällig",
+      "due": "Fällig",
+      "pending": "Anstehend",
+      "completed": "Erledigt"
+    },
+    "upcoming": {
+      "upcoming": "Bevorstehend",
+      "pending": "Anstehend",
+      "due": "Fällig"
+    },
+    "time": {
+      "overdue_by": "Seit {duration} überfällig",
+      "in": "in {duration}",
+      "today": "Heute {time}",
+      "yesterday": "Gestern {time}"
+    },
+    "detail": {
+      "done": "Erledigt {time}",
+      "last_done": "Zuletzt erledigt: {time}",
+      "missed": "{count} verpasst: {dates}",
+      "missed_ellipsis": "…, ",
+      "upcoming": "{label}: {date}",
+      "tag": "Tag: {name}",
+      "skip_tooltip": "Tippen, um bis zum nächsten Termin zu überspringen; gedrückt halten, um ein Datum auszuwählen",
+      "complete_tooltip": "Tippen, um jetzt zu erledigen; gedrückt halten, um Zeit und Person festzulegen",
+      "due_in": "Fällig in {duration}"
+    },
+    "complete": {
+      "title": "{name} erledigen",
+      "completed_at": "Erledigt am:",
+      "completed_by": "Erledigt von:"
+    },
+    "skip": {
+      "title": "{name} überspringen",
+      "until": "Überspringen bis:"
+    },
+    "freq": {
+      "daily": "Täglich",
+      "every_n_days": "Alle {n} Tage",
+      "weekly": "Wöchentlich",
+      "every_n_weeks": "Alle {n} Wochen",
+      "every_n_weeks_on": "Alle {n} Wochen am {days}",
+      "monthly": "Monatlich",
+      "every_n_months": "Alle {n} Monate",
+      "annually": "Jährlich",
+      "every_n_years": "Alle {n} Jahre"
+    },
+    "interval": {
+      "every_minutely": "Jede Minute",
+      "every_n_minutely": "Alle {n} Minuten",
+      "every_hourly": "Jede Stunde",
+      "every_n_hourly": "Alle {n} Stunden",
+      "every_daily": "Jeden Tag",
+      "every_n_daily": "Alle {n} Tage",
+      "every_weekly": "Jede Woche",
+      "every_n_weekly": "Alle {n} Wochen",
+      "every_monthly": "Jeden Monat",
+      "every_n_monthly": "Alle {n} Monate",
+      "every_yearly": "Jedes Jahr",
+      "every_n_yearly": "Alle {n} Jahre"
+    },
+    "schedule": {
+      "at": "Um {time}",
+      "at_time": "{base} um {time}",
+      "on_the": "{lead}: {phrase}",
+      "yearly_in_months": "{base} im {months}",
+      "yearly_on": "{base}: {phrase}",
+      "last_day": "letzter Tag",
+      "with_season": "{text}, {window}",
+      "with_until": "{text}, bis {date}",
+      "with_times_one": "{text}, {count} Mal",
+      "with_times_other": "{text}, {count} Mal",
+      "unscheduled": "Ohne Termin"
+    },
+    "position": {
+      "1": "erster",
+      "2": "zweiter",
+      "3": "dritter",
+      "4": "vierter",
+      "5": "fünfter",
+      "-1": "letzter",
+      "-2": "vorletzter",
+      "-3": "drittletzter",
+      "nth_to_last": "{ordinal} von hinten"
+    },
+    "ordinal": {
+      "other": "{n}."
+    },
+    "edit": {
+      "title_new": "Neue Aufgabe",
+      "title_edit": "Aufgabe bearbeiten",
+      "delete": "Löschen",
+      "confirm_delete": "Löschen bestätigen",
+      "save": "Speichern",
+      "create": "Erstellen",
+      "saving": "Wird gespeichert...",
+      "clear_end_date": "Enddatum löschen",
+      "start_row": "Beginn:",
+      "due_row": "Fällig:",
+      "repeat": "Wiederholen",
+      "frequency": "Häufigkeit",
+      "repeat_every": "Wiederholen alle",
+      "repeat_after": "Wiederholen nach",
+      "monthly_on_day": "Monatlich am {ordinal}",
+      "monthly_on_weekday": "Monatlich am {position} {weekday}",
+      "field": {
+        "list": "Liste",
+        "name": "Name",
+        "description": "Beschreibung",
+        "type": "Typ",
+        "start": "Beginn",
+        "repeat_on": "Wiederholen an",
+        "repeat_monthly": "Monatlich wiederholen",
+        "only_in_months": "Nur in den Monaten",
+        "due": "Fällig",
+        "until": "Bis (Enddatum)",
+        "count": "Oder nach N Wiederholungen",
+        "keep": "Nach Abschluss beibehalten",
+        "pending_period": "Vorwarnzeitraum",
+        "grace_period": "Kulanzzeitraum",
+        "trigger": "Auslöser-Tag",
+        "assigned_to": "Zugewiesen an"
+      },
+      "type": {
+        "scheduled": "Geplant",
+        "interval": "Intervall",
+        "oneshot": "Einmalig"
+      },
+      "freq": {
+        "minutely": "Minütlich",
+        "hourly": "Stündlich",
+        "daily": "Täglich",
+        "weekly": "Wöchentlich",
+        "monthly": "Monatlich",
+        "yearly": "Jährlich"
+      },
+      "unit": {
+        "minutes": "Minuten",
+        "hours": "Stunden",
+        "days": "Tage",
+        "weeks": "Wochen",
+        "months": "Monate",
+        "years": "Jahre"
+      },
+      "err": {
+        "name_required": "Ein Name ist erforderlich.",
+        "until_and_count": "Lege entweder ein Enddatum oder eine Anzahl fest, nicht beides.",
+        "choose_list": "Wähle eine Liste aus.",
+        "no_target": "Keine Zielliste verfügbar."
+      }
+    }
+  },
+  "editor": {
+    "section": {
+      "entities": "Entitäten"
+    },
+    "entity": {
+      "new_name": "Neue Entität"
+    },
+    "button": {
+      "remove_entity": "Entfernen",
+      "remove_entity_title": "Entität entfernen",
+      "add_entity": "Entität hinzufügen",
+      "add_another_entity": "Weitere Entität hinzufügen"
+    },
+    "field": {
+      "title": "Titel",
+      "color": "Listenfarbe",
+      "update_interval": "Aktualisierungsintervall (Sekunden)",
+      "tap_action": "Tippen-Aktion",
+      "hold_action": "Gedrückt-halten-Aktion",
+      "double_tap_action": "Doppeltippen-Aktion",
+      "exclude": "Status ausschließen",
+      "due_date_period": "Fälligkeitszeitraum",
+      "completed_period": "Erledigungszeitraum"
+    },
+    "option": {
+      "hide_completed": "Erledigt-Bereich ausblenden",
+      "hide_section_headers": "Bereichsüberschriften ausblenden",
+      "hide_card_background": "Kartenhintergrund ausblenden",
+      "allow_uncomplete": "Rückgängigmachen erlauben",
+      "hide_add_button": "Hinzufügen-Schaltfläche ausblenden",
+      "hide_edit_button": "Bearbeiten-Schaltfläche ausblenden",
+      "hide_show_all": "Alle-anzeigen-Schaltfläche ausblenden"
+    },
+    "action": {
+      "details": "Aufgabendetails",
+      "edit": "Aufgabe bearbeiten",
+      "complete": "Aufgabe erledigen",
+      "more_info": "Weitere Informationen",
+      "navigate": "Navigieren",
+      "url": "URL",
+      "call_service": "Dienst aufrufen",
+      "none": "Keine"
+    },
+    "placeholder": {
+      "days": "Tage",
+      "hours": "Stunden"
+    }
+  }
+}
