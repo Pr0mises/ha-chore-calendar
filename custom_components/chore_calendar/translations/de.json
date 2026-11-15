@@ -1,0 +1,337 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Aufgabenliste erstellen",
+        "description": "Gib einen Namen für diese Aufgabenliste ein.",
+        "data": {
+          "list_name": "Name der Liste"
+        },
+        "data_description": {
+          "list_name": "Name für diese Aufgabenliste (z. B. „Tägliche Aufgaben“)"
+        }
+      },
+      "reconfigure": {
+        "title": "Aufgabenliste umbenennen",
+        "description": "Ändere den Namen dieser Aufgabenliste.",
+        "data": {
+          "list_name": "Name der Liste"
+        },
+        "data_description": {
+          "list_name": "Neuer Name für diese Aufgabenliste"
+        }
+      }
+    },
+    "error": {
+      "invalid_name": "Der Name der Liste darf nicht leer sein."
+    },
+    "abort": {
+      "already_configured": "Eine Aufgabenliste mit diesem Namen ist bereits vorhanden.",
+      "reconfigure_successful": "[%key:common::config_flow::abort::reconfigure_successful%]"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "chore_status": {
+        "state": {
+          "completed": "Erledigt",
+          "due": "Fällig",
+          "overdue": "Überfällig",
+          "pending": "Anstehend"
+        }
+      }
+    }
+  },
+  "selector": {
+    "scheduled": {
+      "fields": {
+        "frequency": {
+          "name": "Wiederholung",
+          "description": "Wiederholungseinheit — täglich, wöchentlich, monatlich oder jährlich."
+        },
+        "interval": {
+          "name": "Wiederholungsintervall",
+          "description": "Alle N Einheiten wiederholen (z. B. wöchentlich + 2 = alle 2 Wochen)."
+        },
+        "byday": {
+          "name": "Wochentage",
+          "description": "Wochentage. Mit „Position des Wochentags“ kombinieren, um Regeln wie „letzter Freitag“ festzulegen (YAML akzeptiert auch „-1fri“)."
+        },
+        "bymonthday": {
+          "name": "Tage des Monats",
+          "description": "Z. B. 15 oder -1 für den letzten Tag. Nur monatlich/jährlich."
+        },
+        "bysetpos": {
+          "name": "Position des Wochentags",
+          "description": "N-tes Vorkommen der Wochentage im Monat (-1 = letztes). Erfordert Wochentage; nur monatlich/jährlich."
+        },
+        "bymonth": {
+          "name": "Monate",
+          "description": "Saisonzeitraum — die Aufgabe wird nur in diesen Monaten wiederholt."
+        },
+        "dtstart": {
+          "name": "Beginn",
+          "description": "Uhrzeit für jedes Vorkommen. In YAML legt ein vollständiger Zeitstempel den Beginn der Serie fest, wenn das Wiederholungsintervall größer als 1 ist."
+        },
+        "until": {
+          "name": "Endet am",
+          "description": "Letzter Tag oder Zeitpunkt der Serie. Kann nicht zusammen mit „Endet nach“ verwendet werden."
+        },
+        "count": {
+          "name": "Endet nach",
+          "description": "Anzahl geplanter Vorkommen, bevor die Serie endet. Kann nicht zusammen mit „Endet am“ verwendet werden."
+        },
+        "persist": {
+          "name": "Nach Abschluss beibehalten",
+          "description": "Die Aufgabe nach dem Ende der Serie beibehalten; andernfalls wird sie durch hide_completed_items gelöscht."
+        }
+      }
+    },
+    "interval": {
+      "fields": {
+        "frequency": {
+          "name": "Wiederholung",
+          "description": "Wiederholungseinheit — minütlich, stündlich, täglich, wöchentlich, monatlich oder jährlich."
+        },
+        "interval": {
+          "name": "Wiederholungsintervall",
+          "description": "Nach N Einheiten wiederholen, gezählt ab dem letzten Abschluss (z. B. täglich + 5 = nach 5 Tagen)."
+        },
+        "bymonth": {
+          "name": "Monate",
+          "description": "Saisonzeitraum — nur die Zeit in diesen Monaten zählt für die Wartezeit; Zeit außerhalb der Saison wird nicht angerechnet."
+        },
+        "until": {
+          "name": "Endet am",
+          "description": "Die Serie endet, sobald der nächste Fälligkeitstermin nach diesem Zeitpunkt liegt. Kann nicht zusammen mit „Endet nach“ verwendet werden."
+        },
+        "count": {
+          "name": "Endet nach",
+          "description": "Anzahl der Abschlüsse, bevor die Serie endet. Kann nicht zusammen mit „Endet am“ verwendet werden."
+        },
+        "persist": {
+          "name": "Nach Abschluss beibehalten",
+          "description": "Die Aufgabe nach dem Ende der Serie beibehalten; andernfalls wird sie durch hide_completed_items gelöscht."
+        }
+      }
+    },
+    "oneshot": {
+      "fields": {
+        "due_datetime": {
+          "name": "Fälligkeitszeitpunkt",
+          "description": "Zeitpunkt, zu dem diese Aufgabe fällig ist. Leer lassen, um sie ohne Termin zu speichern."
+        },
+        "persist": {
+          "name": "Nach Abschluss beibehalten",
+          "description": "Die Aufgabe nach Abschluss beibehalten; andernfalls wird sie durch hide_completed_items gelöscht."
+        }
+      }
+    },
+    "status": {
+      "options": {
+        "completed": "Erledigt",
+        "due": "Fällig",
+        "overdue": "Überfällig",
+        "pending": "Anstehend"
+      }
+    }
+  },
+  "services": {
+    "create_item": {
+      "name": "Aufgabe erstellen",
+      "description": "Eine neue Aufgabe zu einer Aufgabenliste hinzufügen. Eine der Konfigurationen „Geplant“, „Intervall“ oder „Einmalig“ angeben.",
+      "fields": {
+        "entity_id": {
+          "name": "Entität",
+          "description": "Die Kalender-Entität der gewünschten Aufgabenliste."
+        },
+        "chore_name": {
+          "name": "Aufgabenname",
+          "description": "Anzeigename der Aufgabe."
+        },
+        "description": {
+          "name": "Beschreibung",
+          "description": "Optionaler Detailtext, der in den Kalenderereignissen der Aufgabe angezeigt wird."
+        },
+        "trigger_entity": {
+          "name": "Auslöser-Entität",
+          "description": "Entität, die den Abschluss auslöst (z. B. ein NFC-Tag)."
+        },
+        "assigned_to": {
+          "name": "Zugewiesen an",
+          "description": "Personen-Entitäten, denen diese Aufgabe zugewiesen ist."
+        },
+        "scheduled": {
+          "name": "Geplant",
+          "description": "Eine am Kalender ausgerichtete Aufgabe — sie wird alle N Einheiten an festen Terminen wiederholt."
+        },
+        "interval": {
+          "name": "Intervall",
+          "description": "Eine am letzten Abschluss ausgerichtete Aufgabe — sie wird nach einem festgelegten Zeitraum erneut fällig."
+        },
+        "oneshot": {
+          "name": "Einmalig",
+          "description": "Eine einmalige Aufgabe mit optionalem Fälligkeitszeitpunkt."
+        },
+        "pending_period": {
+          "name": "Vorwarnzeitraum",
+          "description": "Wie lange vor dem Fälligkeitstermin die Aufgabe als anstehend gilt (früher Abschluss möglich). Standard: 3 Stunden."
+        },
+        "grace_period": {
+          "name": "Kulanzzeitraum",
+          "description": "Wie lange nach dem Fälligkeitstermin die Aufgabe bis zum Status „Überfällig“ wartet. Standard: 1 Stunde."
+        }
+      }
+    },
+    "update_item": {
+      "name": "Aufgabe aktualisieren",
+      "description": "Eine vorhandene Aufgabe in einer Aufgabenliste aktualisieren.",
+      "fields": {
+        "entity_id": {
+          "name": "Entität",
+          "description": "Eine Aufgaben-Sensor-Entität oder die Kalender-Entität der gewünschten Liste."
+        },
+        "item": {
+          "name": "Aufgabenname oder UID",
+          "description": "Bei Verwendung der Kalender-Entität erforderlich; bei Verwendung eines Aufgaben-Sensors wird die Aufgabe automatisch ermittelt."
+        },
+        "chore_name": {
+          "name": "Aufgabenname",
+          "description": "Neuer Anzeigename der Aufgabe."
+        },
+        "description": {
+          "name": "Beschreibung",
+          "description": "Neuer Detailtext. Einen leeren Wert angeben, um ihn zu löschen."
+        },
+        "trigger_entity": {
+          "name": "Auslöser-Entität",
+          "description": "Entität, die den Abschluss auslöst."
+        },
+        "assigned_to": {
+          "name": "Zugewiesen an",
+          "description": "Personen-Entitäten, denen diese Aufgabe zugewiesen ist."
+        },
+        "scheduled": {
+          "name": "Geplant",
+          "description": "Wiederholung ersetzen („Wiederholung“ ist erforderlich) oder nur Start-/Beibehalten-Felder übergeben, um sie unverändert zu lassen."
+        },
+        "interval": {
+          "name": "Intervall",
+          "description": "Wiederholung ersetzen („Wiederholung“ ist erforderlich) oder nur „Nach Abschluss beibehalten“ übergeben, um sie unverändert zu lassen."
+        },
+        "oneshot": {
+          "name": "Einmalig",
+          "description": "Neuer Fälligkeitszeitpunkt; null löscht ihn (kein Termin)."
+        },
+        "pending_period": {
+          "name": "Vorwarnzeitraum",
+          "description": "Wie lange vor dem Fälligkeitstermin die Aufgabe als anstehend gilt."
+        },
+        "grace_period": {
+          "name": "Kulanzzeitraum",
+          "description": "Wie lange nach dem Fälligkeitstermin die Aufgabe bis zum Status „Überfällig“ wartet."
+        }
+      }
+    },
+    "delete_item": {
+      "name": "Aufgabe löschen",
+      "description": "Eine Aufgabe aus einer Aufgabenliste entfernen.",
+      "fields": {
+        "entity_id": {
+          "name": "Entität",
+          "description": "Eine Aufgaben-Sensor-Entität oder die Kalender-Entität der gewünschten Liste."
+        },
+        "item": {
+          "name": "Aufgabenname oder UID",
+          "description": "Bei Verwendung der Kalender-Entität erforderlich; bei Verwendung eines Aufgaben-Sensors wird die Aufgabe automatisch ermittelt."
+        }
+      }
+    },
+    "complete_item": {
+      "name": "Aufgabe abschließen",
+      "description": "Eine Aufgabe als erledigt markieren.",
+      "fields": {
+        "entity_id": {
+          "name": "Entität",
+          "description": "Eine Aufgaben-Sensor-Entität oder die Kalender-Entität der gewünschten Liste."
+        },
+        "item": {
+          "name": "Aufgabenname oder UID",
+          "description": "Bei Verwendung der Kalender-Entität erforderlich; bei Verwendung eines Aufgaben-Sensors wird die Aufgabe automatisch ermittelt."
+        },
+        "completed_by": {
+          "name": "Abgeschlossen von",
+          "description": "Personen-Entität der Person, die die Aufgabe abgeschlossen hat."
+        },
+        "completed_at": {
+          "name": "Abgeschlossen am",
+          "description": "Zeitpunkt des Abschlusses. Standardmäßig jetzt."
+        }
+      }
+    },
+    "skip_item": {
+      "name": "Aufgabe überspringen",
+      "description": "Den aktuellen Termin einer Aufgabe verschieben, ohne einen Abschluss zu erfassen.",
+      "fields": {
+        "entity_id": {
+          "name": "Entität",
+          "description": "Eine Aufgaben-Sensor-Entität oder die Kalender-Entität der gewünschten Liste."
+        },
+        "item": {
+          "name": "Aufgabenname oder UID",
+          "description": "Bei Verwendung der Kalender-Entität erforderlich; bei Verwendung eines Aufgaben-Sensors wird die Aufgabe automatisch ermittelt."
+        },
+        "until": {
+          "name": "Bis",
+          "description": "Auf diesen Zeitpunkt verschieben (später verschiebt nach hinten, früher zieht vor). Ohne Angabe gilt der Standard des Aufgabentyps: nächstes Vorkommen (geplant), jetzt + Intervall (Intervall), Fälligkeitsdatum löschen (einmalig)."
+        }
+      }
+    },
+    "uncomplete_item": {
+      "name": "Abschluss rückgängig machen",
+      "description": "Den letzten Abschluss einer Aufgabe rückgängig machen.",
+      "fields": {
+        "entity_id": {
+          "name": "Entität",
+          "description": "Eine Aufgaben-Sensor-Entität oder die Kalender-Entität der gewünschten Liste."
+        },
+        "item": {
+          "name": "Aufgabenname oder UID",
+          "description": "Bei Verwendung der Kalender-Entität erforderlich; bei Verwendung eines Aufgaben-Sensors wird die Aufgabe automatisch ermittelt."
+        }
+      }
+    },
+    "hide_completed_items": {
+      "name": "Erledigte Aufgaben ausblenden",
+      "description": "Aufgaben, die vor einem Stichtag abgeschlossen wurden, in Kalender- und To-do-Entitäten ausblenden. Der Abschlussverlauf bleibt erhalten; abgeschlossene Aufgaben ohne „Nach Abschluss beibehalten“ werden gelöscht.",
+      "fields": {
+        "entity_id": {
+          "name": "Entität",
+          "description": "Die Kalender-Entität der gewünschten Aufgabenliste."
+        },
+        "before": {
+          "name": "Vor",
+          "description": "Aufgaben ausblenden, die vor diesem Zeitpunkt abgeschlossen wurden. Kann nicht zusammen mit „Beibehalten für“ verwendet werden. Ohne beide Angaben gilt jetzt als Stichtag."
+        },
+        "keep_for": {
+          "name": "Beibehalten für",
+          "description": "Aufgaben beibehalten, die innerhalb dieses Zeitraums abgeschlossen wurden (z. B. 24 Stunden). Kann nicht zusammen mit „Vor“ verwendet werden. Ohne beide Angaben gilt jetzt als Stichtag."
+        }
+      }
+    },
+    "get_items": {
+      "name": "Aufgaben abrufen",
+      "description": "Aufgaben einer Aufgabenliste mit ihrem aktuellen Status abrufen.",
+      "fields": {
+        "entity_id": {
+          "name": "Entität",
+          "description": "Die Kalender-Entität der gewünschten Aufgabenliste."
+        },
+        "status": {
+          "name": "Statusfilter",
+          "description": "Nur Aufgaben mit diesem Status zurückgeben."
+        }
+      }
+    }
+  }
+}
